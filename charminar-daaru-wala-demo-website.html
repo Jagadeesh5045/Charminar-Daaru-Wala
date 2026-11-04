@@ -409,6 +409,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <label class="f" style="color:#d8c9a3">Add dishes</label>
           <div style="display:flex;gap:8px"><select id="taCat" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"></select></div>
           <div id="taItems" style="max-height:340px;overflow-y:auto;margin-top:10px;border:1px solid #3a2f1c;border-radius:10px;padding:6px 12px"></div>
+          <div id="taBagBar" role="status" style="display:none;margin-top:10px;background:#12100d;border:1px solid var(--gold);border-radius:10px;padding:10px 12px;color:#f5ecd7;font-size:14px"></div>
         </div>
         <div>
           <label class="f" style="color:#d8c9a3">Collection details</label>
@@ -1665,14 +1666,17 @@ function svcReq(kind){S.reqs.push({kind:kind,table:qrTable,time:new Date().toLoc
 var taCart=[],taCat='Non-Veg Starters';
 (function(){var sel=el('taCat');foodCatsOnly().forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});sel.value=taCat;sel.onchange=function(){taCat=sel.value;renderTaItems()};renderTaItems()})();
 function renderTaItems(){var list=MENU.filter(function(m){return m.c===taCat});
- el('taItems').innerHTML=list.map(function(m){var idx=MENU.indexOf(m);return '<div class="dish"><span class="'+(m.v?'vegdot':'nonvegdot')+'"></span><div><div class="nm" style="color:#f5ecd7">'+esc(m.n)+'</div></div><div class="pr">'+gbp(m.p)+'</div><button class="btn small nightbtn add" onclick="taAdd('+idx+')">Add</button></div>'}).join('')}
+ el('taItems').innerHTML=list.map(function(m){var idx=MENU.indexOf(m);return '<div class="dish"><span class="'+(m.v?'vegdot':'nonvegdot')+'"></span><div><div class="nm" style="color:#f5ecd7">'+esc(m.n)+'</div></div><div class="pr">'+gbp(m.p)+'</div><button class="btn small nightbtn add" data-ta-add="'+idx+'">Add</button></div>'}).join('')}
 function taAdd(idx){var l=taCart.find(function(x){return x.i===idx});if(l)l.q++;else taCart.push({i:idx,q:1});renderTa()}
 function taQty(k,d){taCart[k].q+=d;if(taCart[k].q<=0)taCart.splice(k,1);renderTa()}
-function renderTa(){var c=el('taCart');
- if(!taCart.length){c.innerHTML='<p style="font-size:14px">Your bag is empty.</p>';el('taTotals').style.display='none';return}
+el('taItems').addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-ta-add]'):null;if(!b)return;taAdd(parseInt(b.dataset.taAdd,10));b.classList.add('flash');b.textContent='Added ✓';setTimeout(function(){b.classList.remove('flash');b.textContent='Add'},900)});
+el('taCart').addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-ta-qty]'):null;if(!b)return;taQty(parseInt(b.dataset.taQty,10),parseInt(b.dataset.taD,10))});
+function renderTa(){var c=el('taCart');var bar=el('taBagBar');
+ if(!taCart.length){c.innerHTML='<p style="font-size:14px">Your bag is empty.</p>';el('taTotals').style.display='none';if(bar)bar.style.display='none';return}
  var sub=taCart.reduce(function(a,l){return a+MENU[l.i].p*l.q},0);
- c.innerHTML=taCart.map(function(l,k){return '<div class="cartline"><div style="flex:1"><b>'+esc(MENU[l.i].n)+'</b> \u00D7 '+l.q+'</div><div style="font-weight:700;color:var(--gold-bright)">'+gbp(MENU[l.i].p*l.q)+'</div><div class="qty"><button style="border-color:var(--gold-bright);color:#f5ecd7" onclick="taQty('+k+',-1)">\u2212</button><button style="border-color:var(--gold-bright);color:#f5ecd7" onclick="taQty('+k+',1)">+</button></div></div>'}).join('');
- var t=el('taTotals');t.style.display='block';t.innerHTML='<div class="row grand"><span>Total</span><span>'+gbp(sub)+'</span></div><p style="font-size:12.5px;color:#b9a97f">Pay on collection. No service charge on takeaway.</p>'}
+ c.innerHTML=taCart.map(function(l,k){return '<div class="cartline"><div style="flex:1"><b>'+esc(MENU[l.i].n)+'</b> \u00D7 '+l.q+'</div><div style="font-weight:700;color:var(--gold-bright)">'+gbp(MENU[l.i].p*l.q)+'</div><div class="qty"><button style="border-color:var(--gold-bright);color:#f5ecd7" data-ta-qty="'+k+'" data-ta-d="-1">\u2212</button><button style="border-color:var(--gold-bright);color:#f5ecd7" data-ta-qty="'+k+'" data-ta-d="1">+</button></div></div>'}).join('');
+ var t=el('taTotals');t.style.display='block';t.innerHTML='<div class="row grand"><span>Total</span><span>'+gbp(sub)+'</span></div><p style="font-size:12.5px;color:#b9a97f">Pay on collection. No service charge on takeaway.</p>';
+ if(bar){var n=taCart.reduce(function(a,l){return a+l.q},0);bar.style.display='block';bar.innerHTML='<b>Bag: '+n+' item'+(n===1?'':'s')+' &middot; '+gbp(sub)+'</b> <span style="color:#b9a97f">&mdash; see your collection details below.</span>'}}
 el('taSend').onclick=function(){if(!taCart.length||!el('taName').value.trim()){el('taDone').innerHTML='<p style="color:#f87171">Add dishes and your name first.</p>';return}
  var sub=taCart.reduce(function(a,l){return a+MENU[l.i].p*l.q},0);var ref=randRef('TA');
  S.oid++;S.orders.push({id:ref,takeaway:true,name:el('taName').value.trim(),when:el('taWhen').value,lines:taCart.map(function(l){return MENU[l.i].n+' \u00D7'+l.q}),total:sub,status:0,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});renderBoard();
