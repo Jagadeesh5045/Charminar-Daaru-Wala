@@ -290,7 +290,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
     <input class="menu-search" id="menuSearch" type="search" placeholder="Search the menu, e.g. biryani, mojito, paneer&hellip;" aria-label="Search menu">
     <div class="tabs" id="menuTabs" role="tablist"></div>
     <div id="menuList"></div>
-    <div class="allergy-note"><b>Allergen information:</b> our kitchen handles nuts, gluten, dairy, eggs and shellfish. Dishes are prepared in a shared kitchen, so we cannot guarantee zero cross-contact. Please tell our team about any allergy before you order. <b>Owner to confirm:</b> full allergen list per dish is being added.</div>
+    <div class="allergy-note"><b>Allergen information:</b> All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Please ask staff for dish-specific advice.</div>
   </div>
 </section>
 
@@ -343,7 +343,8 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
             <li>8 tables &middot; 38 covers &middot; single restaurant floor</li>
             <li>Tables 1&ndash;4 seat 6 &middot; Tables 5&ndash;6 seat 2 &middot; Tables 7&ndash;8 seat 5</li>
             <li>Table sitting time: to be confirmed by the owner</li>
-            <li>All meat halal &middot; tell us about allergies when booking</li>
+            <li>All meat halal</li>
+            <li>All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies.</li>
           </ul>
         </div>
       </div>
@@ -372,6 +373,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <div id="qrCart"><p style="color:var(--dim);font-size:14px">Your cart is empty. Add something tasty.</p></div>
           <label class="f" for="qrAllergy">Allergy note for the kitchen</label>
           <input id="qrAllergy" placeholder="e.g. nut allergy, please be careful">
+          <p style="font-size:12.5px;color:var(--dim);margin:6px 0 0">All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Please ask staff for dish-specific advice.</p>
           <div class="totals" id="qrTotals" style="display:none"></div>
           <div id="qrPayOpts" style="display:none">
             <label class="f">Tip</label>
@@ -422,6 +424,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <div id="taCart" style="margin-top:12px;color:#d8c9a3"><p style="font-size:14px">Your bag is empty.</p></div>
           <div class="totals" id="taTotals" style="display:none;color:#f5ecd7"></div>
           <button class="btn nightbtn" id="taSend" style="margin-top:12px">Place Collection Order</button>
+          <p style="font-size:12.5px;color:#b9a97f;margin-top:10px">All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Please ask staff for dish-specific advice.</p>
           <div id="taDone" style="margin-top:12px"></div>
         </div>
       </div>
@@ -566,7 +569,8 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
         </div></div></div>
       </div>
     </div>
-    <p style="font-size:13px;color:var(--dim);margin-top:14px">Mock-ups for demonstration. The live bot connects once the owner supplies a WhatsApp number.</p>
+    <p style="font-size:14.5px;margin-top:16px">Booking bot on WhatsApp: <a href="https://wa.me/447448863185" target="_blank" rel="noopener" style="font-weight:800;color:var(--gold)">+44 7448 863185</a> &mdash; tap to open a chat with the bot.</p>
+    <p style="font-size:13px;color:var(--dim);margin-top:6px">The phone screens above are mock-ups for demonstration. The bot number is confirmed: +44 7448 863185.</p>
   </div>
 </section>
 
@@ -618,7 +622,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
       </div>
       <div>
         <h4>Good to know</h4>
-        <p style="font-size:13.5px">Prices include VAT. A discretionary service charge may apply (to be confirmed). Kitchen handles nuts, gluten, dairy, eggs and shellfish; please advise of allergies. Parking at back/front of the restaurant or on Langleys Road.</p>
+        <p style="font-size:13.5px">Prices include VAT. A discretionary service charge may apply (to be confirmed). All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Parking at back/front of the restaurant or on Langleys Road.</p>
       </div>
     </div>
     <p style="font-size:12.5px;color:#8f7f5f;margin-top:30px;border-top:1px solid #3a2f1c;padding-top:16px">Demonstration website. Demo bookings, orders and codes live in this browser session only.</p>
@@ -1543,12 +1547,12 @@ el('faqs').innerHTML=[
  ['Do you offer a student discount?','Yes, 10% off food and soft drinks. Whether student ID is required is being confirmed by the owner.'],
  ['When is Happy Hour?','Every day, 2pm to 6pm: 40% off draught beers only.'],
  ['Is there a service charge?','A discretionary service charge may apply. The exact details are being confirmed by the owner.'],
- ['Do you cater for allergies?','Our kitchen handles nuts, gluten, dairy, eggs and shellfish. Please tell our team about any allergy before ordering.']
+ ['Do you cater for allergies?','All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Please ask staff for dish-specific advice.']
 ].map(function(f){return '<p style="margin:10px 0"><b>'+f[0]+'</b><br><span style="color:var(--dim)">'+f[1]+'</span></p>'}).join('');
 
 /* ---------- owner checklist ---------- */
-var CK_OK=['Table plan: 8 tables, 38 covers (Tables 1\u20134 seat 6, 5\u20136 seat 2, 7\u20138 seat 5)','All meat halal \u2014 stated across the site','Prices settled: Lamb Chops \u00A312.99, Chicken 65 \u00A39.99 (homepage prices corrected)','Student discount live: 10% off food and soft drinks','Happy Hour live: daily 2\u20136pm, 40% off draught beers','Parking info: back/front of restaurant or Langleys Road'];
-var CK_TODO=['Allergen list per dish (UK legal requirement)','WhatsApp number for the booking bot','Payment provider (Stripe / Square) or pay-at-counter','Domain access for charminardaaruwala.co.uk + final approver','Booking rule confirmation (15 min hold / 30 min max)','Max party size, sitting time, group deposit, no-show wording','Service charge scope: food bills too, or drinks only?','Click & Collect confirmation + delivery platform links','Vegan dish list; any dishes to add or remove','Christmas / group packages and prices; voucher validity','Logo, photos, social links, hygiene rating','Children timings, dress code, private hire terms','Alert email + staff mobiles for notifications'];
+var CK_OK=['Table plan: 8 tables, 38 covers (Tables 1\u20134 seat 6, 5\u20136 seat 2, 7\u20138 seat 5)','All meat halal \u2014 stated across the site','WhatsApp booking bot number confirmed: +44 7448 863185','Allergen wording confirmed (as on the menu card): kitchen handles nuts, gluten, dairy and shellfish \u2014 ask staff for dish-specific advice','Prices settled: Lamb Chops \u00A312.99, Chicken 65 \u00A39.99 (homepage prices corrected)','Student discount live: 10% off food and soft drinks','Happy Hour live: daily 2\u20136pm, 40% off draught beers','Parking info: back/front of restaurant or Langleys Road'];
+var CK_TODO=['Payment provider (Stripe / Square) or pay-at-counter','Domain access for charminardaaruwala.co.uk + final approver','Booking rule confirmation (15 min hold / 30 min max)','Max party size, sitting time, group deposit, no-show wording','Service charge scope: food bills too, or drinks only?','Click & Collect confirmation + delivery platform links','Vegan dish list; any dishes to add or remove','Christmas / group packages and prices; voucher validity','Logo, photos, social links, hygiene rating','Children timings, dress code, private hire terms','Alert email + staff mobiles for notifications'];
 el('ckOk').innerHTML=CK_OK.map(function(t){return '<div class="ck ok"><span class="ic">\u2713</span><span>'+t+'</span></div>'}).join('');
 el('ckTodo').innerHTML=CK_TODO.map(function(t){return '<div class="ck todo"><span class="ic">\u25CB</span><span>'+t+'</span></div>'}).join('');
 
@@ -1744,11 +1748,12 @@ function botAnswer(q){q=q.toLowerCase();
  if(/qr|scan|order/.test(q))return 'Every table has a QR code \u2014 scan it to order straight to the kitchen, pick spice levels, call the waiter or split the bill. Try the demo in the Scan & Order section.';
  if(/takeaway|collect|delivery/.test(q))return 'Click & Collect is available from this site \u2014 order here and collect from the counter; your collection time is confirmed when you order.';
  if(/vegan/.test(q))return 'We have plenty of vegetarian starters and curries. A confirmed vegan list is coming \u2014 ask our team on the day.';
- if(/allerg/.test(q))return 'Our kitchen handles nuts, gluten, dairy, eggs and shellfish. Please tell our team about any allergy before you order.';
+ if(/allerg/.test(q))return 'All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Please ask staff for dish-specific advice.';
  if(/voucher|gift/.test(q))return 'Gift vouchers come in \u00A325, \u00A350, \u00A375 and \u00A3100 \u2014 generate a code in the Vouchers section.';
  if(/party|christmas|group|hire/.test(q))return 'For groups of 8+, Christmas parties or full private hire, use the enquiry forms in the Celebrations section and we will call you back.';
  if(/price|cost|how much/.test(q)){var hit=MENU.find(function(m){return q.indexOf(m.n.toLowerCase())>=0});if(hit)return esc(hit.n)+' is '+gbp(hit.p)+'.';return 'Search the menu above for any dish \u2014 all 248 items show real prices.'}
  if(/menu/.test(q))return 'Our menu has 248 items: starters, curries, biryanis, breads, desserts, cocktails, spirits, beers, wines and soft drinks. Scroll up to browse.';
+ if(/whatsapp/.test(q))return 'Message our booking bot on WhatsApp: +44 7448 863185.';
  if(/phone|call|contact/.test(q))return 'Call us on 0121 249 3114.';
  if(/hi|hello|hey|namaste/.test(q))return 'Namaste! Ask me about opening hours, halal, parking, offers, bookings or the menu.';
  return 'I can help with opening hours, location, halal, parking, offers, bookings, QR ordering and the menu. What would you like to know?'}
