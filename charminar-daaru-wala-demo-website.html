@@ -42,7 +42,6 @@
   "url": "https://charminar-daaru-wala.netlify.app/",
   "telephone": "+44 121 249 3114",
   "servesCuisine": ["Hyderabadi", "Indian"],
-  "acceptsReservations": "True",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "856 Bristol Road, Selly Oak",
@@ -201,6 +200,7 @@ textarea{min-height:80px;resize:vertical}
 .qr-card .qrbox{width:150px;height:150px;margin:12px auto;background:#fff;display:flex;align-items:center;justify-content:center;border:1px solid #d9c69c}
 .qr-card .foot{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8a6420;font-weight:800}
 .qr-card .qrurl{font-size:10.5px;color:#5d5344;margin-top:8px;word-break:break-all;line-height:1.45;font-weight:600}
+.qr-card .pilot{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8a6420;font-weight:800;margin-top:7px;border:1px dashed rgba(166,124,46,.7);border-radius:6px;padding:4px 8px;display:inline-block}
 /* offers */
 .offer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
 .offer{background:var(--card);border:1.5px solid var(--gold);border-radius:14px;padding:24px;box-shadow:var(--shadow)}
@@ -536,13 +536,13 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
     <p class="sec-sub">Large groups, Christmas parties and full private hire. Tell us the plan and we will call you back.</p>
     <div class="grid2">
       <div class="panel">
-        <h3 class="serif" style="font-size:24px;margin:0 0 6px">Group (8+) &amp; Christmas party enquiry</h3>
+        <h3 class="serif" style="font-size:24px;margin:0 0 6px">Groups of 7+ &amp; Christmas party enquiry</h3>
         <label class="f" for="gName">Name</label><input id="gName" placeholder="Your name">
         <div class="grid2" style="gap:12px">
           <div><label class="f" for="gPhone">Phone</label><input id="gPhone" type="tel"></div>
           <div><label class="f" for="gDate">Preferred date</label><input id="gDate" type="date"></div>
         </div>
-        <label class="f" for="gSize">Group size</label><input id="gSize" type="number" min="8" value="10">
+        <label class="f" for="gSize">Group size</label><input id="gSize" type="number" min="7" value="10">
         <label class="f" for="gType">Type</label><select id="gType"><option>Large group dinner</option><option>Christmas party</option><option>Birthday / celebration</option><option>Corporate meal</option></select>
         <button class="btn" id="gSend" style="margin-top:14px">Send Enquiry</button>
         <div id="gOut" style="margin-top:12px"></div>
@@ -1592,7 +1592,7 @@ function drawQR(box,text){box.innerHTML='';try{
 function qrUrlFor(t){return 'https://charminar-daaru-wala.netlify.app/?table='+t.n}
 function buildQrCards(){var g=el('qrCards');g.innerHTML='';
  TABLES.forEach(function(t,i){var d=document.createElement('div');d.className='qr-card';
- d.innerHTML='<div style="color:#a67c2e"><svg viewBox="0 0 220 150" fill="currentColor" style="height:44px;width:auto"><rect x="6" y="138" width="208" height="8" rx="2"/><rect x="18" y="52" width="13" height="86"/><circle cx="24.5" cy="42" r="9"/><rect x="60" y="52" width="13" height="86"/><circle cx="66.5" cy="42" r="9"/><rect x="147" y="52" width="13" height="86"/><circle cx="153.5" cy="42" r="9"/><rect x="189" y="52" width="13" height="86"/><circle cx="195.5" cy="42" r="9"/><rect x="78" y="66" width="64" height="72"/></svg></div><h4>Table '+t.n+'</h4><div class="seats">Seats '+t.seats+' &middot; Restaurant floor</div><div class="qrbox" id="qrc'+t.n+'"></div><div class="foot">Scan to order &middot; Charminar Daaru Wala</div><div class="qrurl">'+qrUrlFor(t)+'</div>';
+ d.innerHTML='<div style="color:#a67c2e"><svg viewBox="0 0 220 150" fill="currentColor" style="height:44px;width:auto"><rect x="6" y="138" width="208" height="8" rx="2"/><rect x="18" y="52" width="13" height="86"/><circle cx="24.5" cy="42" r="9"/><rect x="60" y="52" width="13" height="86"/><circle cx="66.5" cy="42" r="9"/><rect x="147" y="52" width="13" height="86"/><circle cx="153.5" cy="42" r="9"/><rect x="189" y="52" width="13" height="86"/><circle cx="195.5" cy="42" r="9"/><rect x="78" y="66" width="64" height="72"/></svg></div><h4>Table '+t.n+'</h4><div class="seats">Seats '+t.seats+' &middot; Restaurant floor</div><div class="qrbox" id="qrc'+t.n+'"></div><div class="foot">Scan to order &middot; Charminar Daaru Wala</div><div class="qrurl">'+qrUrlFor(t)+'</div><div class="pilot">Pilot demonstration card</div>';
  g.appendChild(d)});
  TABLES.forEach(function(t){drawQR(el('qrc'+t.n),qrUrlFor(t))})}
 </script>
@@ -1628,6 +1628,7 @@ el('bookSubmit').onclick=function(){
  if(isNaN(bd.getTime())||bd<today){fail('That date is in the past. Please choose today or a future date for your booking.');return}
  var tp=time.split(':'),mins=(+tp[0])*60+(+tp[1]);
  if(isNaN(mins)||mins<12*60||mins>22*60+30){fail('We take bookings from 12:00 noon, with the last booking starting at 10:30pm (the kitchen closes at 11:30pm). Please choose a time in that window.');return}
+ if(bd.getTime()===today.getTime()){var now=new Date(),chosen=new Date(bd.getFullYear(),bd.getMonth(),bd.getDate(),+tp[0],+tp[1]);if(chosen<=now){fail('That time has already passed today. Please choose a later time for today, or pick another date for your booking.');return}}
  var digits=phone.replace(/[\s()\-\.]/g,'');
  if(!/^(\+44\d{9,10}|0\d{9,10})$/.test(digits)){fail('That phone number does not look like a valid UK number. Please check it and try again, for example 07123 456789 or +44 7123 456789.');return}
  var party=parseInt(el('bParty').value,10);
@@ -1772,7 +1773,7 @@ function botAnswer(q){q=q.toLowerCase();
  if(/\b(takeaway|collect|collection|delivery)\b/.test(q))return 'Click & Collect is available from this site \u2014 order here and collect from the counter; your collection time is confirmed when you order.';
  if(/\bvegan\b/.test(q))return 'We have plenty of vegetarian starters and curries. A confirmed vegan list is coming \u2014 ask our team on the day.';
  if(/\b(vouchers?|gift)\b/.test(q))return 'Gift vouchers come in \u00A325, \u00A350, \u00A375 and \u00A3100 \u2014 generate a code in the Vouchers section.';
- if(/\b(party|parties|christmas|groups?|hire)\b/.test(q))return 'For groups of 8+, Christmas parties or full private hire, use the enquiry forms in the Celebrations section and we will call you back.';
+ if(/\b(party|parties|christmas|groups?|hire)\b/.test(q))return 'For groups of 7+, Christmas parties or full private hire, use the enquiry forms in the Celebrations section and we will call you back.';
  if(/\b(price|cost)\b/.test(q)||q.indexOf('how much')>=0){var hit=MENU.find(function(m){return q.indexOf(m.n.toLowerCase())>=0});if(hit)return esc(hit.n)+' is '+gbp(hit.p)+'.';return 'Search the menu above for any dish \u2014 all 248 items show real prices.'}
  if(/\bmenu\b/.test(q))return 'Our menu has 248 items: starters, curries, biryanis, breads, desserts, cocktails, spirits, beers, wines and soft drinks. Scroll up to browse.';
  if(/\bwhatsapp\b/.test(q))return 'Message our booking bot on WhatsApp: +44 7448 863185.';
