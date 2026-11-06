@@ -168,6 +168,8 @@ input,select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--bord
 textarea{min-height:80px;resize:vertical}
 .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:12px 0}
 .check input{width:auto;margin-top:4px}
+.demo-note{font-size:12.5px;font-weight:700;color:var(--dim);margin:10px 0 0}
+.night .demo-note{color:#cdbd93}
 .disclaimer{background:#fff8e6;border:1.5px solid var(--gold);border-radius:10px;padding:14px 16px;font-size:14px;margin:16px 0}
 @media(prefers-color-scheme:dark){.disclaimer{background:#241d10}}
 .ref-card{text-align:center;padding:30px}
@@ -335,7 +337,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
   <div class="wrap">
     <p class="eyebrow" style="color:var(--gold-bright)">Reservations</p>
     <h2 class="sec" style="color:var(--ivory)">Book your table</h2>
-    <p class="sec-sub">Instant confirmation. Amend or cancel yourself any time before your visit.</p>
+    <p class="sec-sub">Amend or cancel yourself any time before your visit.</p>
     <div class="grid2">
       <div class="panel" style="background:var(--night-soft);border-color:#3a2f1c">
         <div id="bookForm">
@@ -363,7 +365,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <label class="check"><input type="checkbox" id="bAgree"> <span>I accept the booking policy above.</span></label>
           <button class="btn nightbtn" id="bookSubmit" style="width:100%;justify-content:center;margin-top:8px">Confirm Booking</button>
           <div id="bookError" role="alert" style="display:none;margin-top:12px;background:#2a1210;border:1.5px solid #f87171;border-radius:10px;padding:12px 14px;font-size:14px;color:#fca5a5"></div>
-          <p style="font-size:12.5px;color:#b9a97f;margin-top:10px">Demo build: bookings live in this page session only and reset on reload.</p>
+          <p style="font-size:12.5px;color:#b9a97f;margin-top:10px">Demo: nothing you enter here is sent or stored. Bookings live in this page session only and reset on reload.</p>
         </div>
         <div id="bookDone" style="display:none"></div>
       </div>
@@ -403,7 +405,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
       <div class="grid2">
         <div>
           <label class="f">Add dishes</label>
-          <div style="display:flex;gap:8px"><select id="qrCat"></select></div>
+          <div style="display:flex;gap:8px"><select id="qrCat" aria-label="Menu category for table ordering"></select></div>
           <div id="qrItems" style="max-height:340px;overflow-y:auto;margin-top:10px;border:1px solid var(--border);border-radius:10px;padding:6px 12px"></div>
         </div>
         <div>
@@ -414,10 +416,11 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <p style="font-size:12.5px;color:var(--dim);margin:6px 0 0">All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Please ask staff for dish-specific advice.</p>
           <div class="totals" id="qrTotals" style="display:none"></div>
           <div id="qrPayOpts" style="display:none">
+            <label class="check"><input type="checkbox" id="qrSvc"> <span>Add a discretionary 10% service charge</span></label>
             <label class="f">Tip</label>
             <div class="tchips" id="tipChips"></div>
             <label class="f">Split bill between</label>
-            <select id="splitSel"></select>
+            <select id="splitSel" aria-label="Split the bill between how many people"></select>
             <p id="splitOut" style="font-weight:700;color:var(--gold)"></p>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
@@ -442,13 +445,13 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
 <section id="takeaway" class="night jali">
   <div class="wrap">
     <p class="eyebrow" style="color:var(--gold-bright)">Click &amp; Collect</p>
-    <h2 class="sec" style="color:var(--ivory)">Takeaway, minus the commission</h2>
+    <h2 class="sec" style="color:var(--ivory)">Takeaway, straight from our kitchen</h2>
     <p class="sec-sub">Order direct from us and collect from the counter. Your collection time is confirmed when you order.</p>
     <div class="panel" style="background:var(--night-soft);border-color:#3a2f1c">
       <div class="grid2">
         <div>
           <label class="f" style="color:#d8c9a3">Add dishes</label>
-          <div style="display:flex;gap:8px"><select id="taCat" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"></select></div>
+          <div style="display:flex;gap:8px"><select id="taCat" aria-label="Menu category for takeaway" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"></select></div>
           <div id="taItems" style="max-height:340px;overflow-y:auto;margin-top:10px;border:1px solid #3a2f1c;border-radius:10px;padding:6px 12px"></div>
           <div id="taBagBar" role="status" style="display:none;margin-top:10px;background:#12100d;border:1px solid var(--gold);border-radius:10px;padding:10px 12px;color:#f5ecd7;font-size:14px"></div>
         </div>
@@ -462,8 +465,10 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <select id="taWhen" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"></select>
           <div id="taCart" style="margin-top:12px;color:#d8c9a3"><p style="font-size:14px">Your bag is empty.</p></div>
           <div class="totals" id="taTotals" style="display:none;color:#f5ecd7"></div>
+          <label class="check" id="taSvcWrap" style="display:none;color:#d8c9a3"><input type="checkbox" id="taSvc"> <span>Add a discretionary 10% service charge</span></label>
           <button class="btn nightbtn" id="taSend" style="margin-top:12px">Place Collection Order</button>
           <p style="font-size:12.5px;color:#b9a97f;margin-top:10px">All dishes are prepared in a kitchen that handles nuts, gluten, dairy, and shellfish. Please inform your server of any allergies. Please ask staff for dish-specific advice.</p>
+          <p class="demo-note">Demo: nothing you enter here is sent or stored.</p>
           <div id="taDone" style="margin-top:12px"></div>
         </div>
       </div>
@@ -484,6 +489,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <div><label class="f" for="wParty">Party size</label><select id="wParty"></select></div>
         </div>
         <button class="btn" id="wJoin" style="margin-top:14px">Join Waitlist</button>
+        <p class="demo-note">Demo: nothing you enter here is sent or stored.</p>
         <div id="wOut" style="margin-top:12px"></div>
       </div>
       <div class="panel">
@@ -546,6 +552,7 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
         <label class="f" for="gSize">Group size</label><input id="gSize" type="number" min="7" value="10">
         <label class="f" for="gType">Type</label><select id="gType"><option>Large group dinner</option><option>Christmas party</option><option>Birthday / celebration</option><option>Corporate meal</option></select>
         <button class="btn" id="gSend" style="margin-top:14px">Send Enquiry</button>
+        <p class="demo-note">Demo: nothing you enter here is sent or stored.</p>
         <div id="gOut" style="margin-top:12px"></div>
       </div>
       <div>
@@ -555,12 +562,14 @@ footer h4{color:var(--ivory);font-family:"Cormorant Garamond",serif;font-size:22
           <label class="f" for="pName">Name</label><input id="pName" placeholder="Your name">
           <label class="f" for="pPhone">Phone</label><input id="pPhone" type="tel">
           <button class="btn" id="pSend" style="margin-top:14px">Send Enquiry</button>
+          <p class="demo-note">Demo: nothing you enter here is sent or stored.</p>
           <div id="pOut" style="margin-top:12px"></div>
         </div>
         <div class="panel" style="margin-top:18px">
           <h3 class="serif" style="font-size:24px;margin:0 0 6px">Newsletter</h3>
           <p style="font-size:14px;color:var(--dim)">New dishes, Eid and Diwali specials, Happy Hour changes. One email a month, no noise.</p>
-          <div style="display:flex;gap:8px"><input id="nEmail" type="email" placeholder="you@example.com"><button class="btn small" id="nGo">Join</button></div>
+          <div style="display:flex;gap:8px"><input id="nEmail" type="email" placeholder="you@example.com" aria-label="Email address for the newsletter"><button class="btn small" id="nGo">Join</button></div>
+          <p class="demo-note">Demo: nothing you enter here is sent or stored.</p>
           <div id="nOut" style="margin-top:10px;font-size:14px"></div>
         </div>
       </div>
@@ -1641,7 +1650,7 @@ el('bookSubmit').onclick=function(){
  el('bookForm').style.display='none';var d=el('bookDone');d.style.display='block';d.innerHTML=bookingCard(b)};
 function lateBooking(ref){var b=S.bookings[ref];if(!b)return;b.late=true;renderBoard();el('bookDone').innerHTML=bookingCard(b);var m=el('mOut');if(m.dataset.ref===ref)m.innerHTML=manageCard(b)}
 function amendBooking(ref){var b=S.bookings[ref];if(!b)return;var box=el('amend'+ref);if(!box)return;
- box.innerHTML='<div style="margin-top:14px;text-align:left"><label class="f" style="color:#d8c9a3">New date</label><input type="date" id="aD'+ref+'" value="'+b.date+'" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"><label class="f" style="color:#d8c9a3">New time</label><input type="time" id="aT'+ref+'" value="'+b.time+'" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"><button class="btn small nightbtn" style="margin-top:10px" onclick="saveAmend(\''+ref+'\')">Save changes</button></div>'}
+ box.innerHTML='<div style="margin-top:14px;text-align:left"><label class="f" style="color:#d8c9a3">New date</label><input type="date" id="aD'+ref+'" aria-label="New date" value="'+b.date+'" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"><label class="f" style="color:#d8c9a3">New time</label><input type="time" id="aT'+ref+'" aria-label="New time" value="'+b.time+'" style="background:#12100d;border-color:#3a2f1c;color:#f5ecd7"><button class="btn small nightbtn" style="margin-top:10px" onclick="saveAmend(\''+ref+'\')">Save changes</button></div>'}
 function saveAmend(ref){var b=S.bookings[ref];if(!b)return;var d=el('aD'+ref).value,t=el('aT'+ref).value;if(d)b.date=d;if(t)b.time=t;renderBoard();el('bookDone').innerHTML=bookingCard(b);var m=el('mOut');if(m.dataset.ref===ref)m.innerHTML=manageCard(b)}
 function cancelBooking(ref){var b=S.bookings[ref];if(!b)return;delete S.bookings[ref];renderBoard();
  var html='<div class="ref-card"><p class="eyebrow" style="color:var(--gold-bright)">Booking cancelled</p><p style="color:#d8c9a3">Reference '+ref+' has been cancelled. We hope to see you another time.</p><button class="btn small nightbtn" onclick="bookAgain()">Book another table</button></div>';
@@ -1659,7 +1668,7 @@ function foodCatsOnly(){return CATS.filter(function(c){return FOOD_CATS.indexOf(
 (function(){var ch=el('tableChips');TABLES.forEach(function(t){var b=document.createElement('button');b.className='tchip'+(t.n===qrTable?' on':'');b.textContent='Table '+t.n+' \u00B7 '+t.seats+' seats';b.onclick=function(){qrTable=t.n;qrCart=qrCarts[qrTable]||(qrCarts[qrTable]=[]);syncTableChips();renderQr()};ch.appendChild(b)});
  var sel=el('qrCat');foodCatsOnly().forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});sel.value=qrCat;sel.onchange=function(){qrCat=sel.value;renderQrItems()};
  var tc=el('tipChips');[['None',0],['10%',10],['12.5%',12.5]].forEach(function(tp,i){var b=document.createElement('button');b.className='tchip'+(i===0?' on':'');b.textContent=tp[0];b.dataset.v=tp[1];b.onclick=function(){qrTip=tp[1];Array.prototype.forEach.call(tc.children,function(x){x.classList.remove('on')});b.classList.add('on');renderQrTotals()};tc.appendChild(b)});
- var sp=el('splitSel');for(var i=1;i<=12;i++){var o2=document.createElement('option');o2.value=i;o2.textContent=i+(i===1?' (no split)':' ways');sp.appendChild(o2)}sp.onchange=renderQrTotals})();
+ var sp=el('splitSel');for(var i=1;i<=12;i++){var o2=document.createElement('option');o2.value=i;o2.textContent=i+(i===1?' (no split)':' ways');sp.appendChild(o2)}sp.onchange=renderQrTotals;el('qrSvc').onchange=renderQrTotals})();
 var qrTip=0;
 function renderQrItems(){var box=el('qrItems');var list=MENU.filter(function(m){return m.c===qrCat});
  box.innerHTML=list.map(function(m){var idx=MENU.indexOf(m);return '<div class="dish"><span class="'+(m.v?'vegdot':'nonvegdot')+'"></span><div><div class="nm">'+esc(m.n)+'</div><div style="margin-top:4px">'+badges(m)+'</div></div><div class="pr">'+gbp(m.p)+'</div><button class="btn small add" data-add="'+idx+'">Add</button></div>'}).join('')}
@@ -1673,13 +1682,13 @@ function qrLineTotal(l){return MENU[l.i].p*l.q}
 function syncTableChips(){var ch=el('tableChips');if(!ch)return;Array.prototype.forEach.call(ch.children,function(x,i){if(TABLES[i])x.classList.toggle('on',TABLES[i].n===qrTable)})}
 function renderQr(){syncTableChips();el('qrTableName').textContent='\u2014 Table '+qrTable;
  var c=el('qrCart');
- if(!qrCart.length){c.innerHTML='<p style="color:var(--dim);font-size:14px">Your cart is empty. Add something tasty.</p>';el('qrTotals').style.display='none';el('qrPayOpts').style.display='none';return}
+ if(!qrCart.length){c.innerHTML='<p style="color:var(--dim);font-size:14px">Your cart is empty. Add something tasty.</p>';el('qrTotals').style.display='none';el('qrPayOpts').style.display='none';el('qrSvc').checked=false;return}
  c.innerHTML=qrCart.map(function(l,k){var m=MENU[l.i];
   var sp=isFood(m)?'<div class="spice">'+SPICE.map(function(s){return '<button class="'+(l.spice===s?'on':'')+'" onclick="qrSpice('+k+',\''+s+'\')">'+s+'</button>'}).join('')+'</div>':'';
   return '<div class="cartline"><div style="flex:1"><b>'+esc(m.n)+'</b> <span style="color:var(--dim)">\u00D7 '+l.q+'</span>'+sp+'</div><div style="font-weight:700;color:var(--gold)">'+gbp(qrLineTotal(l))+'</div><div class="qty"><button onclick="qrQty('+k+',-1)">\u2212</button><button onclick="qrQty('+k+',1)">+</button></div></div>'}).join('');
  el('qrTotals').style.display='block';el('qrPayOpts').style.display='block';renderQrTotals()}
 function renderQrTotals(){var sub=qrCart.reduce(function(a,l){return a+qrLineTotal(l)},0);
- var svc=Math.round(sub*0.10),tip=Math.round(sub*qrTip/100),tot=sub+svc+tip;
+ var svc=el('qrSvc').checked?Math.round(sub*0.10):0,tip=Math.round(sub*qrTip/100),tot=sub+svc+tip;
  var split=parseInt(el('splitSel').value,10)||1;
  el('qrTotals').innerHTML='<div class="row"><span>Subtotal</span><span>'+gbp(sub)+'</span></div><div class="row"><span>Service charge (10%, discretionary)</span><span>'+gbp(svc)+'</span></div><div class="row"><span>Tip '+(qrTip?qrTip+'%':'\u2014')+'</span><span>'+gbp(tip)+'</span></div><div class="row grand"><span>Total</span><span>'+gbp(tot)+'</span></div>';
  if(split>1){var per=Math.floor(tot/split),lastP=tot-per*(split-1);
@@ -1705,23 +1714,26 @@ function svcReq(kind){S.reqs.push({kind:kind,table:qrTable,time:new Date().toLoc
 /* takeaway ---------- */
 var taCart=[],taCat='Non-Veg Starters';
 (function(){var sel=el('taCat');foodCatsOnly().forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});sel.value=taCat;sel.onchange=function(){taCat=sel.value;renderTaItems()};renderTaItems()})();
+el('taSvc').onchange=function(){renderTa()};
 function renderTaItems(){var list=MENU.filter(function(m){return m.c===taCat});
  el('taItems').innerHTML=list.map(function(m){var idx=MENU.indexOf(m);return '<div class="dish"><span class="'+(m.v?'vegdot':'nonvegdot')+'"></span><div><div class="nm" style="color:#f5ecd7">'+esc(m.n)+'</div></div><div class="pr">'+gbp(m.p)+'</div><button class="btn small nightbtn add" data-ta-add="'+idx+'">Add</button></div>'}).join('')}
 function taAdd(idx){var l=taCart.find(function(x){return x.i===idx});if(l)l.q++;else taCart.push({i:idx,q:1});renderTa()}
 function taQty(k,d){taCart[k].q+=d;if(taCart[k].q<=0)taCart.splice(k,1);renderTa()}
 el('taItems').addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-ta-add]'):null;if(!b)return;taAdd(parseInt(b.dataset.taAdd,10));b.classList.add('flash');b.textContent='Added ✓';setTimeout(function(){b.classList.remove('flash');b.textContent='Add'},900)});
 el('taCart').addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-ta-qty]'):null;if(!b)return;taQty(parseInt(b.dataset.taQty,10),parseInt(b.dataset.taD,10))});
-function renderTa(){var c=el('taCart');var bar=el('taBagBar');
- if(!taCart.length){c.innerHTML='<p style="font-size:14px">Your bag is empty.</p>';el('taTotals').style.display='none';if(bar)bar.style.display='none';return}
+function renderTa(){var c=el('taCart');var bar=el('taBagBar');var sw=el('taSvcWrap');
+ if(!taCart.length){c.innerHTML='<p style="font-size:14px">Your bag is empty.</p>';el('taTotals').style.display='none';if(sw)sw.style.display='none';el('taSvc').checked=false;if(bar)bar.style.display='none';return}
  var sub=taCart.reduce(function(a,l){return a+MENU[l.i].p*l.q},0);
+ var svc=el('taSvc').checked?Math.round(sub*0.10):0,tot=sub+svc;
  c.innerHTML=taCart.map(function(l,k){return '<div class="cartline"><div style="flex:1"><b>'+esc(MENU[l.i].n)+'</b> \u00D7 '+l.q+'</div><div style="font-weight:700;color:var(--gold-bright)">'+gbp(MENU[l.i].p*l.q)+'</div><div class="qty"><button style="border-color:var(--gold-bright);color:#f5ecd7" data-ta-qty="'+k+'" data-ta-d="-1">\u2212</button><button style="border-color:var(--gold-bright);color:#f5ecd7" data-ta-qty="'+k+'" data-ta-d="1">+</button></div></div>'}).join('');
- var t=el('taTotals');t.style.display='block';t.innerHTML='<div class="row grand"><span>Total</span><span>'+gbp(sub)+'</span></div><p style="font-size:12.5px;color:#b9a97f">Pay on collection. No service charge on takeaway.</p>';
- if(bar){var n=taCart.reduce(function(a,l){return a+l.q},0);bar.style.display='block';bar.innerHTML='<b>Bag: '+n+' item'+(n===1?'':'s')+' &middot; '+gbp(sub)+'</b> <span style="color:#b9a97f">&mdash; see your collection details below.</span>'}}
+ if(sw)sw.style.display='flex';
+ var t=el('taTotals');t.style.display='block';t.innerHTML=(svc?'<div class="row"><span>Subtotal</span><span>'+gbp(sub)+'</span></div><div class="row"><span>Service charge (10%, discretionary)</span><span>'+gbp(svc)+'</span></div>':'')+'<div class="row grand"><span>Total</span><span>'+gbp(tot)+'</span></div><p style="font-size:12.5px;color:#b9a97f">Pay on collection.</p>';
+ if(bar){var n=taCart.reduce(function(a,l){return a+l.q},0);bar.style.display='block';bar.innerHTML='<b>Bag: '+n+' item'+(n===1?'':'s')+' &middot; '+gbp(tot)+'</b> <span style="color:#b9a97f">&mdash; see your collection details below.</span>'}}
 el('taSend').onclick=function(){if(!taCart.length||!el('taName').value.trim()){el('taDone').innerHTML='<p style="color:#f87171">Add dishes and your name first.</p>';return}
- var sub=taCart.reduce(function(a,l){return a+MENU[l.i].p*l.q},0);var ref=randRef('TA');
- S.oid++;S.orders.push({id:ref,takeaway:true,name:el('taName').value.trim(),when:el('taWhen').value,lines:taCart.map(function(l){return MENU[l.i].n+' \u00D7'+l.q}),total:sub,status:0,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});renderBoard();
- el('taDone').innerHTML='<div class="panel" style="background:#12100d;border-color:#3a2f1c"><p class="eyebrow" style="color:var(--gold-bright)">Order placed</p><div class="ref-code" style="font-size:32px">'+ref+'</div><p style="color:#d8c9a3;font-size:14px">'+esc(el('taName').value)+' &middot; '+gbp(sub)+'<br>Collect '+esc(el('taWhen').value)+' from 856 Bristol Road.<br>The team can see this on the Team Board as a collection order.</p></div>';
- taCart=[];renderTa()};
+ var sub=taCart.reduce(function(a,l){return a+MENU[l.i].p*l.q},0);var tot=sub+(el('taSvc').checked?Math.round(sub*0.10):0);var ref=randRef('TA');
+ S.oid++;S.orders.push({id:ref,takeaway:true,name:el('taName').value.trim(),when:el('taWhen').value,lines:taCart.map(function(l){return MENU[l.i].n+' \u00D7'+l.q}),total:tot,status:0,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});renderBoard();
+ el('taDone').innerHTML='<div class="panel" style="background:#12100d;border-color:#3a2f1c"><p class="eyebrow" style="color:var(--gold-bright)">Order placed</p><div class="ref-code" style="font-size:32px">'+ref+'</div><p style="color:#d8c9a3;font-size:14px">'+esc(el('taName').value)+' &middot; '+gbp(tot)+'<br>Collect '+esc(el('taWhen').value)+' from 856 Bristol Road.<br>The team can see this on the Team Board as a collection order.</p></div>';
+ taCart=[];el('taSvc').checked=false;renderTa()};
 
 /* waitlist ---------- */
 el('wJoin').onclick=function(){var n=el('wName').value.trim();if(!n){el('wOut').innerHTML='<p style="color:var(--chilli)">Please add your name.</p>';return}
